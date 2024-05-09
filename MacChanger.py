@@ -2,6 +2,7 @@ import subprocess
 import re
 import os
 import sys
+import random
 
 def check_root_privileges():
     if os.geteuid() != 0:
@@ -13,8 +14,17 @@ def validate_mac(mac):
     pattern = r"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"
     return re.match(pattern, mac)
 
+def generate_random_mac():
+    # Generate a random MAC address
+    random_mac = ":".join(f"{random.randint(0, 255):02X}" for _ in range(6))
+    return random_mac
+
 def change_mac(interface, new_mac):
     try:
+        if new_mac.lower() == "random":
+            new_mac = generate_random_mac()
+            print(f"Generated random MAC address: {new_mac}")
+
         # Validate the new MAC address
         if not validate_mac(new_mac):
             print("Invalid MAC address format. Please use XX:XX:XX:XX:XX:XX.")
@@ -36,7 +46,11 @@ def change_mac(interface, new_mac):
 if __name__ == "__main__":
     check_root_privileges()
     interface = input("Enter the network interface name (e.g., eth0): ")
-    new_mac = input("Enter the new MAC address (format: XX:XX:XX:XX:XX:XX): ")
+    new_mac = input("Enter the new MAC address (format: XX:XX:XX:XX:XX:XX or 'random'): ")
+
+    if new_mac.lower() == "random":
+        print("Generating a random MAC address...")
+        new_mac = generate_random_mac()
+
     print("You entered:", new_mac)
     change_mac(interface, new_mac)
-

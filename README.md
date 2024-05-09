@@ -1,5 +1,9 @@
-### Mac-Changer
+### Mac Changer
 
-This is a Simple Mac Changer
+This is a Simple tool for changing system Mac Address 
 
-![alt text](https://raw.githubusercontent.com/MrShellcode/Pictures/main/MacChanger.png?token=GHSAT0AAAAAACSA2PUO3CCTFDXH3D4OHD7UZR5JEVQ)
+### Usage
+'''bash
+  python MacChanger.py
+'''
+![1](https://github.com/MrShellcode/Pictures/blob/949920c8735473e55ebedbbdeda63965c408a3a1/MacChanger.png)
